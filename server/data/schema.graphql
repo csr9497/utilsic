@@ -1,0 +1,95 @@
+# Clients Formats
+
+type Client {
+    id: ID
+    name: String!
+    last_name: String!
+    job: String!
+    emails: [Email]
+    edad: Int!
+    tipo: TypeClient
+    orders: [Orders]
+}
+
+type Email {
+    email: String
+}
+
+type Orders {
+    product: String
+    price: Int
+}
+
+input OrderInput {
+    product: String
+    price: Int
+}
+
+input EmailInput {
+    email: String
+}
+input ClientInput {
+    id: ID
+    name: String!
+    last_name: String!
+    job: String!
+    emails: [EmailInput]
+    edad: Int!
+    tipo: TypeClient
+    orders: [OrderInput]
+}
+enum TypeClient {
+    BASICO
+    PREMIUM
+}
+
+
+# Products Formats
+
+type Product {
+    id: ID
+    name: String!
+    model: String!
+    brand: String!
+    price: Int!
+    stock: Int!
+    delay: String!
+}
+
+input ProductInput {
+    id: ID
+    name: String!
+    model: String!
+    brand: String!
+    price: Int!
+    stock: Int!
+    delay: String!
+}
+
+# Actions
+
+type Query {
+
+    # Clients
+    getClients(limit: Int, offset: Int) : [Client]
+    getClient(id: ID): Client
+    countClients: String 
+
+    # Products
+    getProducts(limit: Int, offset: Int) : [Product]
+    getProduct(id: ID): Product
+    countProducts: String
+
+}
+type Mutation {
+
+    # Mutations Clients
+    createClient(input: ClientInput): Client
+    updateClient(input: ClientInput): Client
+    removeClient(id: ID!): String
+
+    # Mutations Products
+    createProduct(input: ProductInput): Product
+    updateProduct(input: ProductInput): Product
+    deleteProduct(id: ID!): String
+}
